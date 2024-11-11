@@ -1,0 +1,24 @@
+.gallery__design {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 2rem;
+    grid-auto-rows: 2rem;
+        
+}
+
+.gallery__item {
+    grid-row: span 1;
+}
+
+.gallery__item img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15, green, blue, alpha);
+    grid-row: span 1;
+}
+
+.gallery__item:nth-child(2n) {
+    grid-row: span 2;
+}
