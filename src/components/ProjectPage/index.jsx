@@ -7,6 +7,7 @@ import axios from 'axios';
 import './ProjectPage.css';
 import Modal from '../Modal/Modal';
 import { baseURL } from '../../helpers/baseUrl';
+import { toast } from 'react-toast';
 
 
 const ProjectPage = () => {
@@ -90,6 +91,10 @@ const ProjectPage = () => {
         })
             .then(response => {
                 console.log(response);
+                if(response.status === 201) {
+                    toast.error("No faces found");
+                    return;
+                }
                 setFoundFaces(response.data.matching_images);
                 setNewComponent(true);
                 setShowModalSearch(false);
