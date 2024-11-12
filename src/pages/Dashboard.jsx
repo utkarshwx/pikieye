@@ -194,7 +194,6 @@ const Dashboard = () => {
                             <h1 className='text-xl sm:text-2xl md:text-4xl text-center font-bold mt-10'>No projects found</h1>
                         </div>
 
-
                         :
 
                         userProjects.map((project, index) =>

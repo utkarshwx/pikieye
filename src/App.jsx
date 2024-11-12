@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Header from './layouts/Header/Header';
 import { Route, Routes } from 'react-router-dom';
 import Login from './pages/Login/Login';
@@ -11,11 +11,13 @@ import axios from 'axios';
 import { baseURL } from './helpers/baseUrl';
 
 function App() {
-  axios.defaults.baseURL = baseURL;
-  // axios.defaults.baseURL = "http://localhost:5000";
-  axios.defaults.headers = {
-    authorization: `Bearer ${sessionStorage.getItem('token')}`
-  }
+  useEffect(() => {
+    axios.defaults.baseURL = baseURL;
+    // axios.defaults.baseURL = "http://localhost:5000";
+    axios.defaults.headers = {
+      authorization: `Bearer ${sessionStorage.getItem('token')}`
+    }
+  }, [sessionStorage.getItem('token')]);
   // axios.defaults.baseURL = "https://my-flask-app-latest-fbf3.onrender.com";
   return (
     <div className="App">

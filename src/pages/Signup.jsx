@@ -4,6 +4,8 @@ import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
+const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>]).*$/;
+
 const Signup = () => {
 
     const [input, setInputs] = React.useState({});
@@ -21,22 +23,54 @@ const Signup = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        toast.loading('Creating your account...')
+        if (input.password.length < 8) {
 
-        axios.post('/auth/signup', input)
-            .then((response) => {
-                console.log(response);
-                toast.dismiss();
-                toast.success('Account created successfully!')
-                setTimeout(() => {
-                    navigate('/auth');
-                }, 2000,[]);
-                
-            })
-            .catch((error) => {
-                toast.dismiss();
-                toast.error(error.response.data.error)
-            })
+            if (!pattern.test(input.password.value)) {
+
+                toast.error("Password must contain at least one uppercase letter, one lowercase letter, and one special character", {
+                    duration: 3000,
+                    style: {
+                        backgroundColor: 'red',
+                        color: 'white',
+                    }
+                })
+            }
+
+            else{
+                toast.error("Password must be at least 8 characters", {
+                    duration: 3000,
+                    style: {
+                        backgroundColor: 'red',
+                        color: 'white',
+                    }
+                })
+            }
+
+
+            
+        }
+
+        else {
+
+            toast.loading('Creating your account...')
+
+            axios.post('/auth/signup', input)
+                .then((response) => {
+                    console.log(response);
+                    toast.dismiss();
+                    toast.success('Account created successfully!')
+                    setTimeout(() => {
+                        navigate('/auth');
+                    }, 2000, []);
+
+                })
+                .catch((error) => {
+                    toast.dismiss();
+                    toast.error(error.response.data.message)
+                })
+        }
+
+
 
     }
 

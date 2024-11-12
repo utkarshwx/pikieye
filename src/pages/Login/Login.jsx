@@ -30,12 +30,15 @@ const Login = () => {
                 toast.dismiss();
                 toast.success('Logged in successfully!');
                 sessionStorage.setItem('token', response.data.access_token);
+                axios.defaults.headers = {
+                    authorization: `Bearer ${sessionStorage.getItem('token')}`
+                }
                 navigate('/home');
             })
             .catch((error) => {
                 console.log(error);
                 toast.dismiss();
-                if(error.response.status === 401) toast.error(error.response.data.message);
+                if (error.response.status === 401) toast.error(error.response.data.message);
                 else toast.error(error.message);
             })
 
@@ -72,7 +75,7 @@ const Login = () => {
                                     name='password'
                                     id='password'
                                     onChange={handleChange}
-                                    value={input.password} 
+                                    value={input.password}
                                     required
                                 />
                             </div>
