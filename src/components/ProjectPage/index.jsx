@@ -97,6 +97,7 @@ const ProjectPage = () => {
             })
             .catch(error => {
                 console.log(error);
+                setNewComponent(false);
             })
     }
 
@@ -171,20 +172,24 @@ const ProjectPage = () => {
                     </div>
 
                     {
-                        newComponent ? <div >
-                            <h1 className='text-xl md:text-2xl font-semibold m-5'>Got some matcing faces</h1>
-                            <div className='grid grid-cols-3 gap-5 mb-10'>
-                            {
-                                foundFaces.map((face, index) => (
+                        newComponent ?
+                            <div >
+                                <h1 className='text-xl md:text-2xl font-semibold m-5'>Got some matcing faces</h1>
+                                <div className='grid grid-cols-3 gap-5 mb-10'>
+                                    {
+                                        foundFaces.map((face, index) => (
 
-                                    
-                                    <img key={index} src={`${baseURL}/api/gridfs/${face}?jwt=${sessionStorage.getItem('token')}`} alt={`Image ${index}`} className="rounded-md w-full" />
 
-                                ))
-                            }
+                                            <img key={index} src={`${baseURL}/api/gridfs/${face}?jwt=${sessionStorage.getItem('token')}`} alt={`Image ${index}`} className="rounded-md w-full" />
+
+                                        ))
+                                    }
+                                </div>
                             </div>
-                            </div> :
-                            null
+                            :
+                            <div>
+                                <h1 className='text-xl md:text-2xl font-semibold m-5'> No Images Found</h1>
+                            </div>
 
                     }
 
@@ -201,13 +206,13 @@ const ProjectPage = () => {
                                         All Photos
                                     </h1>
                                     <div className='grid grid-cols-3 gap-5'>
-                                    {photos.map((photo, index) => (
-                                        <div className=' gap-5'>
-                                            <img key={index} src={`${baseURL}/api/gridfs/${photo}?jwt=${sessionStorage.getItem('token')}`} alt={`Image ${index}`} className="rounded-md w-full" />
-                                        </div>
-                                    ))}
+                                        {photos.map((photo, index) => (
+                                            <div className=' gap-5'>
+                                                <img key={index} src={`${baseURL}/api/gridfs/${photo}?jwt=${sessionStorage.getItem('token')}`} alt={`Image ${index}`} className="rounded-md w-full" />
+                                            </div>
+                                        ))}
                                     </div>
-                                    
+
                                 </div>
                         }
 
