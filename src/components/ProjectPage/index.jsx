@@ -92,6 +92,7 @@ const ProjectPage = () => {
             .then(response => {
                 console.log(response);
                 if(response.status === 201) {
+                    setShowModalSearch(false);
                     toast.error("No faces found");
                     return;
                 }
@@ -192,7 +193,7 @@ const ProjectPage = () => {
                                 </div>
                             </div>
                             :
-                            <div>
+                            <div className="flex items-center justify-center text-center">
                                 <h1 className='text-xl md:text-2xl font-semibold m-5'> No Images Found</h1>
                             </div>
 
